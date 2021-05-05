@@ -1,16 +1,14 @@
 let count = 0 // четные не четные значения // для очередности ходов
-const divs = document.getElementsByClassName('container__item');
-for(let i = 0; i < divs.length; i++){
-    divs[i].onclick = ()=>{
-        click(divs[i])
-    }
-}
-const click = async(elem)=>{
-    if(count % 2 == 0){
+const divs = document.querySelectorAll('.container__item') // плитки
+
+divs.forEach(e=> e.onclick = ()=> click(e))
+
+const click = elem =>{
+    if(count % 2 === 0){
         elem.style.backgroundImage = "url('img/tic.svg')"
         elem.onclick = false
         elem.style.cursor = 'default'
-        elem.htmlFor = '1'
+        elem.title = '1'
         count += 1 
         checkEnd()
     }else{
@@ -18,27 +16,30 @@ const click = async(elem)=>{
         elem.style.backgroundSize = "65%"
         elem.onclick = false
         elem.style.cursor = 'default'
-        elem.htmlFor = '2'
+        elem.title = '2'
         count += 1 
         checkEnd()
     }
 }
+
 const checkEnd = ()=>{
-  if (divs[0].htmlFor =='1' && divs[1].htmlFor =='1' && divs[2].htmlFor =='1' || divs[0].htmlFor =='2' && divs[1].htmlFor =='2' && divs[2].htmlFor =='2')  reset();
-  if (divs[3].htmlFor =='1' && divs[4].htmlFor =='1' && divs[5].htmlFor =='1' || divs[3].htmlFor =='2' && divs[4].htmlFor =='2' && divs[5].htmlFor =='2')  reset();
-  if (divs[6].htmlFor =='1' && divs[7].htmlFor =='1' && divs[8].htmlFor =='1' || divs[6].htmlFor =='2' && divs[7].htmlFor =='2' && divs[8].htmlFor =='2')  reset();
-  if (divs[0].htmlFor =='1' && divs[3].htmlFor =='1' && divs[6].htmlFor =='1' || divs[0].htmlFor =='2' && divs[3].htmlFor =='2' && divs[6].htmlFor =='2')  reset();
-  if (divs[1].htmlFor =='1' && divs[4].htmlFor =='1' && divs[7].htmlFor =='1' || divs[1].htmlFor =='2' && divs[4].htmlFor =='2' && divs[7].htmlFor =='2')  reset();
-  if (divs[2].htmlFor =='1' && divs[5].htmlFor =='1' && divs[8].htmlFor =='1' || divs[2].htmlFor =='2' && divs[5].htmlFor =='2' && divs[8].htmlFor =='2')  reset();
-  if (divs[0].htmlFor =='1' && divs[4].htmlFor =='1' && divs[8].htmlFor =='1' || divs[0].htmlFor =='2' && divs[4].htmlFor =='2' && divs[8].htmlFor =='2')  reset();
-  if (divs[2].htmlFor =='1' && divs[4].htmlFor =='1' && divs[6].htmlFor =='1' || divs[2].htmlFor =='2' && divs[4].htmlFor =='2' && divs[6].htmlFor =='2')  reset();
-  if (count == 9) reset()
+  divs[0].title === '1' && divs[1].title === '1' && divs[2].title === '1' || divs[0].title === '2' && divs[1].title ==='2' && divs[2].title ==='2' ? reset() :
+  divs[3].title === '1' && divs[4].title === '1' && divs[5].title === '1' || divs[3].title === '2' && divs[4].title ==='2' && divs[5].title ==='2' ? reset() :
+  divs[6].title === '1' && divs[7].title === '1' && divs[8].title === '1' || divs[6].title === '2' && divs[7].title ==='2' && divs[8].title ==='2' ? reset() :
+  divs[0].title === '1' && divs[3].title === '1' && divs[6].title === '1' || divs[0].title === '2' && divs[3].title ==='2' && divs[6].title ==='2' ? reset() :
+  divs[1].title === '1' && divs[4].title === '1' && divs[7].title === '1' || divs[1].title === '2' && divs[4].title ==='2' && divs[7].title ==='2' ? reset() :
+  divs[2].title === '1' && divs[5].title === '1' && divs[8].title === '1' || divs[2].title === '2' && divs[5].title ==='2' && divs[8].title ==='2' ? reset() :
+  divs[0].title === '1' && divs[4].title === '1' && divs[8].title === '1' || divs[0].title === '2' && divs[4].title ==='2' && divs[8].title ==='2' ? reset() :
+  divs[2].title === '1' && divs[4].title === '1' && divs[6].title === '1' || divs[2].title === '2' && divs[4].title ==='2' && divs[6].title ==='2' ? reset() :
+  count === 9 && reset()
 }
+
 const reset = ()=>{
-    for(let i = 0; i < divs.length; i++){
-        divs[i].onclick = false
-        divs[i].style.cursor = 'default'
-    }
-    $( ".alert" ).toggle(200)
-    $( ".alert__button" ).click(()=> location.reload())
+    divs.forEach( e => {
+        e.onclick = false
+        e.style.cursor = 'default'
+    })
+
+    $( ".alert" ).fadeIn(1000)
+    $( ".alert__button" ).click(()=> window.location.reload())
 }
